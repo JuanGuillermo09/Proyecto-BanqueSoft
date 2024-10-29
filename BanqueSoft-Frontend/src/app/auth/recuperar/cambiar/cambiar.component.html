@@ -1,0 +1,35 @@
+<div class="container">
+  <form [formGroup]="cambiarContraseniaForm" (ngSubmit)="cambiarContrasenia()" >
+    <h1>Recuperar Contraseña</h1>
+    <hr>
+    <div class="row">
+      <div class="col-4">
+        <label for="Contrasenia" class="form-label">Nueva Contraseña:</label>
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="Contrasenia" required class="form-control">
+
+      </div>
+      <div class="col-4">
+        <label for="Encriptado" class="form-label">Confirmar Contraseña:</label>
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="Encriptado" required
+          class="form-control">
+      </div>
+      <div class="col-4">
+        <mat-icon (click)="showPassword = !showPassword" class="icon">{{ showPassword ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-4">
+        <div
+          *ngIf="cambiarContraseniaForm.errors && this.cambiarContraseniaForm.errors['notMatching'] && cambiarContraseniaForm.get('Contrasenia')?.touched"
+          class="text-danger">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success" [disabled]="!cambiarContraseniaForm.valid">Actualizar
+      Contraseña</button>
+  </form>
+</div>

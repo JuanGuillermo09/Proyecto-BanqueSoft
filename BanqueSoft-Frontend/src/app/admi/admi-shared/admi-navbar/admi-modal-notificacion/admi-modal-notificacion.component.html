@@ -1,0 +1,16 @@
+<mat-dialog-actions>
+  <mat-icon   mat-button mat-dialog-close>close</mat-icon>
+  <h2 mat-dialog-title>   Notificaciones</h2>
+</mat-dialog-actions>
+
+<mat-dialog-content  >
+  <div *ngFor="let cita of notificaciones" class="card">
+    <h5 class="card-header">Cita ID: {{ cita.Cod_cita }}</h5>
+    <div class="card-body">
+      <h5 class="card-title">{{ cita.Nombre }}</h5>
+      <p class="card-text">Fecha: {{ cita.Fecha }} - Hora: {{ cita.Hora }}</p>
+      <button class="btn btn-primary" [routerLink]="['/admi/admi-cita']"  mat-button mat-dialog-close>Ver Detalles</button>
+    </div>
+  </div>
+
+</mat-dialog-content>

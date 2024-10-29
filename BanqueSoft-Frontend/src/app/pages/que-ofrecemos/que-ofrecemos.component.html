@@ -1,0 +1,19 @@
+<app-side-bar />
+<div class="container">
+  <div>
+    <h1>Qué Ofrecemos</h1>
+    <hr>
+  </div>
+  <div class=" ayuda row" *ngFor="let item of QueOfrece">
+    <div class="col 4">
+      <h2>{{item.Nombre}}</h2>
+    </div>
+    <div class="col 4">
+      <h2>{{item.Descripcion}}</h2>
+    </div>
+    <div class="col 4">
+      <img [src]="item.Imagen" alt="">
+    </div>
+    <hr>
+  </div>
+</div>

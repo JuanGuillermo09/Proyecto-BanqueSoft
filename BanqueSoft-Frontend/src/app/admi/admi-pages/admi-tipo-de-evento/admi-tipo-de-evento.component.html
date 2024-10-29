@@ -1,0 +1,52 @@
+<div class="container">
+  <h1>Tipo De evento</h1>
+  <hr>
+  <form [formGroup]="FormTipoDeEvento">
+    <div class="row">
+      <div class="">
+        <label class="form-label">Nombre Evento:</label><br>
+        <input type="text" class="form-control" formControlName="Nombre" placeholder="Ejm: Matrimonio">
+      </div>
+    </div>
+    <div class="">
+      <button *ngIf="!botonEditar" (click)="enviarDatos()" class="Btn btn btn-success">Guardar</button>
+      <button *ngIf="botonEditar" (click)="editarDatos()" class="Btn btn btn-success">Editar</button>
+      <button type="button" class="Btn btn btn-danger" (click)="resetForm()">Limpiar</button>
+    </div>
+    <br>
+  </form>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of resultadoTipo">
+            <td>{{item.Cod_tipo_evento}}</td>
+            <td>{{item.Nombre}}</td>
+            <td>
+              <!-- Botones para cambiar el estado -->
+              <button (click)="cambiarEstadoCategoria(item.Cod_tipo_evento, 1)" *ngIf="item.Estado === 0"
+                class="btn btn-success">Activar</button>
+              <button (click)="cambiarEstadoCategoria(item.Cod_tipo_evento, 0)" *ngIf="item.Estado === 1"
+                class="btn btn-danger">Desactivar</button>
+            </td>
+            <td>
+              <a><mat-icon style="cursor: pointer;"
+                  (click)="editarTipoEvento(item, item.Cod_tipo_evento)">edit</mat-icon></a>&nbsp;
+              <a><mat-icon style="cursor: pointer;"
+                  (click)="eliminarTipoDeEvento(item.Cod_tipo_evento)">delete</mat-icon></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+
+<div class="container">
+  <form action="formulario_submit" method="get" accept-charset="utf-8" [formGroup]="FormAdministrador">
+    <h1>Administrador</h1>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Tipo De Documento</label><br>
+        <select class="form-control" formControlName="Tipo_documento">
+          <option selected></option>
+          <option value="CC">CC</option>
+          <option value="CE">CE</option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Identificacion</label><br>
+        <input type="text" placeholder="Ejm: 102054565" class="form-control" formControlName="Identificacion" equired
+          minlength="1" maxlength="10" size="10">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Nombres</label><br>
+        <input type="text" placeholder="Ejm: Juan Guillermo" class="form-control" formControlName="Nombre">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Apellidos</label><br>
+        <input type="text" placeholder="Ejm: Cardenas Miranda" class="form-control" formControlName="Apellidos">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Genero</label><br>
+        <select class="form-control" formControlName="Genero">
+          <option selected></option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Telefono</label><br>
+        <input type="number" placeholder="Ejm: 3505947967" class="form-control" formControlName="Telefono">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Direccion</label><br>
+        <input type="text" placeholder="Ejm: calle" class="form-control" formControlName="Direccion">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Email</label><br>
+        <input type="email" placeholder="Ejm: juangui.1032@gmail.com" class="form-control" formControlName="Email">
+      </div>
+    </div>
+    <br>
+    <div class="row ">
+      <div class="col 4">
+        <label class="form-label">Contraseña</label><br>
+        <input  [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" class="form-control" formControlName="Contrasenia">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Confirmar Contraseña</label><br>
+        <input [type]="showPassword ? 'text' : 'password'"  placeholder="Confirmar" class="form-control" formControlName="Encriptado">
+        <div *ngIf="FormAdministrador.errors && this.FormAdministrador.errors['notMatching'] && FormAdministrador.get('Encriptado')?.touched" class="text-danger">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+      <div class="col 4">
+        <mat-icon (click)="showPassword = !showPassword" class="icon">{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </div>
+    </div>
+    <br>
+    <button *ngIf="!botonEditar" (click)="enviarDatos()" class="Btn btn btn-success">Guardar</button>
+    <button *ngIf="botonEditar" (click)="editarDatos()" class="Btn btn btn-success">Editar</button>
+    <button type="button" class="Btn btn btn-danger" (click)="resetForm()">Limpiar</button>
+  </form>
+</div>
+<div class="container1">
+  <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Identificacion</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Genero</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of resultadoAdministrador ">
+            <td>{{item.Cod_administrador}}</td>
+            <td>{{item.Tipo_documento}}</td>
+            <td>{{item.Identificacion}}</td>
+            <td>{{item.Nombre}}</td>
+            <td>{{item.Apellidos}}</td>
+            <td>{{item.Genero}}</td>
+            <td>{{item.Telefono}}</td>
+            <td>{{item.Direccion}}</td>
+            <td>{{item.Email}}</td>
+            <td>
+                <!-- Esto dentro de tu lista o tabla de Administrador -->
+                <button (click)="cambiarEstado(item.Cod_administrador, 1)" *ngIf="item.Estado === 0"
+                class="btn btn-success">Activar</button>
+              <button (click)="cambiarEstado(item.Cod_administrador, 0)" *ngIf="item.Estado === 1"
+                class="btn btn-danger">Desactivar</button>
+            </td>
+            <td>
+              <a><mat-icon style="cursor: pointer;"
+                (click)="editarAdministrador(item, item.Cod_administrador)">edit</mat-icon></a>&nbsp;
+            <a><mat-icon style="cursor: pointer;" (click)="eliminarAdministrador(item.Cod_administrador)">delete</mat-icon></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,91 @@
+<div class="container">
+
+  <form action="formulario_submit" method="get" accept-charset="utf-8"  [formGroup]="FormCita">
+    <h1 *ngIf="nombreCliente && !isAdmin">Hola {{ nombreCliente }}</h1>
+    <div>
+      <h1>Reserva  cita</h1>
+      <hr>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col 4">
+          <label class="form-label">Identificacion</label><br>
+          <input type="text" placeholder="Ejm: 102054565" equired minlength="1" maxlength="10" size="10"
+            class="form-control" formControlName="Identificacion">
+        </div>
+        <div class="col 4">
+          <label class="form-label">Nombre</label><br>
+          <input type="text" placeholder="Ejm: Juan Guillermo Cardenas Miranda" class="form-control" formControlName="Nombre">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col 4">
+          <label class="form-label">Fecha</label><br>
+          <input type="date" placeholder="" class="form-control" formControlName="Fecha">
+        </div>
+        <div class="col 4">
+          <label class="form-label">Hora</label><br>
+          <!-- <input type="time" class="form-control" formControlName="Hora" > -->
+          <select class="form-control" formControlName="Hora">
+            <option *ngFor="let hora of availableHoras" [value]="hora" [disabled]="isHoraOcupada(hora)">
+              {{ hora }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="!botonEditar " (click)="enviarDatos()" class="Btn btn btn-success">Guardar</button>
+    <button *ngIf="botonEditar && isAdmin" (click)="editarDatos()" class="Btn btn btn-success">Editar</button>
+    <button type="button" class="Btn btn btn-danger" (click)="resetForm()">Limpiar</button>
+    <button type="button" class="Btn btn btn-danger " (click)="logout()" *ngIf="!isAdmin">Salir</button>
+  </form>
+  <div  *ngIf="isAdmin">
+    <hr>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Identificacion</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Hora</th>
+              <th scope="col">Estado</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of resultadoCita ">
+              <td>{{item.Cod_cita}}</td>
+              <td>{{item.Identificacion}}</td>
+              <td>{{item.Nombre}}</td>
+              <td>{{item.Fecha}}</td>
+              <td>{{item.Hora}}</td>
+              <td>
+                  <!-- Esto dentro de tu lista o tabla de Administrador -->
+                  <button (click)="cambiarEstado(item.Cod_cita, 1)" *ngIf="item.Estado === 0"
+                  class="btn btn-success">Activar</button>
+                <button (click)="cambiarEstado(item.Cod_cita, 0)" *ngIf="item.Estado === 1"
+                  class="btn btn-danger">Desactivar</button>
+              </td>
+              <td>
+                <a><mat-icon style="cursor: pointer;"
+                  (click)="editarCita(item, item.Cod_cita)">edit</mat-icon></a>&nbsp;
+              <a><mat-icon style="cursor: pointer;" (click)="eliminarCita(item.Cod_cita)">delete</mat-icon></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <!-- Loading Spinner -->
+ <div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>

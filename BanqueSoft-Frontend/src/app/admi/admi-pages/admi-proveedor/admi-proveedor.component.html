@@ -1,0 +1,84 @@
+<div class="container">
+  <h1>Proveedores</h1>
+  <hr>
+  <form action="" [formGroup]="formProveedor">
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Nombre del representante</label><br>
+        <input formControlName="Nombre_representante" type="text" placeholder="Ejm: Juan Cardenas" class="form-control">
+      </div>
+      <div class="col 4">
+        <label class="form-label">NIT</label><br>
+        <input formControlName="Nit" type="text" placeholder="Ejm: 882409" class="form-control" equired minlength="1"
+          maxlength="10" size="10">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Telefono</label><br>
+        <input formControlName="Telefono" type="text" placeholder="Ejm: 3002947967" equired minlength="1" maxlength="10"
+          size="10" class="form-control">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Direccion</label><br>
+        <input formControlName="Direccion" type="text" placeholder="Ejm: calle 37 # 44 -37" class="form-control">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Email</label><br>
+        <input formControlName="Email" type="email" placeholder="Ejm: juangui.1032@gmail.com" class="form-control">
+      </div>
+      <div class="col 4">
+        <button *ngIf="!botonEditar" (click)="enviarDatos()" type="button" class="Btn btn btn-primary ">Guardar</button>
+        <button *ngIf="botonEditar" (click)="editarDatos()" class="Btn btn btn-success ">Editar</button>
+        <button type="button" class="Btn btn btn-danger" (click)="resetForm()">Cancelar</button>
+      </div>
+
+    </div>
+  </form>
+
+  <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">NIT</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of resultadoProveedor ">
+            <td>{{item.Cod_proveedor}}</td>
+            <td>{{item.Nombre_representante}}</td>
+            <td>{{item.Nit}}</td>
+            <td>{{item.Telefono}}</td>
+            <td>{{item.Direccion}}</td>
+            <td>{{item.Email}}</td>
+            <td>
+              <!-- Esto dentro de tu lista o tabla de proveedores -->
+              <button (click)="cambiarEstado(item.Cod_proveedor, 1)" *ngIf="item.Estado === 0" class="btn btn-success">Activar</button>
+              <button (click)="cambiarEstado(item.Cod_proveedor, 0)" *ngIf="item.Estado === 1" class="btn btn-danger" >Desactivar</button>
+            </td>
+            <td>
+              <a><mat-icon style="cursor: pointer;"
+                  (click)="editarProveedor(item,item.Cod_proveedor)">edit</mat-icon></a>&nbsp;
+              <a><mat-icon style="cursor: pointer;"
+                  (click)="eliminarProveedor(item.Cod_proveedor)">delete</mat-icon></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

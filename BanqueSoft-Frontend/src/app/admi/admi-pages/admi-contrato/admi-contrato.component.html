@@ -1,0 +1,190 @@
+<div class="container">
+  <h1>Contrato</h1>
+  <hr>
+  <form [formGroup]="ContratoForm">
+    <div class="row">
+      <div class="col 4">
+        <h6>Dia Mes Año</h6>
+        <h6>{{ horaActual | date:"dd - MM - YYY" }}</h6>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Identificacion</label><br>
+        <input type="text" placeholder="Ejm: 1111111" class="form-control" equired minlength="1" maxlength="10"
+          size="10" readonly formControlName="Identificacion">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Señor(a)</label><br>
+        <input type="text" placeholder="Ejm: Juan Cardenas" class="form-control" readonly formControlName="Nombre">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Telefono</label><br>
+        <input type="number" placeholder="Ejm: 3004005989" class="form-control" readonly formControlName="Telefono">
+      </div>
+      <div class="col 4">
+        <button class="Btn btn btn-light border border-dark  " (click)="openDialog($event)">Ver Cliente</button>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Tipo De Evento</label><br>
+        <select formControlName="Cod_tipo_evento" class="form-control" (ngModelChange)="onTipoEventoChange($event)">
+          <option *ngFor="let item of TipoActivo" [value]="item.Cod_tipo_evento">
+            {{item.Nombre}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Fecha De Evento</label><br>
+        <input type="date" placeholder="Ejm: 20/02/2005" class="form-control" formControlName="Fecha_evento"
+          (change)="onFechaChange()">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Hora De Evento</label><br>
+        <select class="form-control" formControlName="Hora_evento">
+          <option *ngFor="let hora of availableHoras" [value]="hora">
+            {{ hora }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Numero De Invitados</label><br>
+        <input type="number" placeholder="Ejm: 100 " class="form-control" formControlName="Número_invitados" required>
+        <div
+          *ngIf="ContratoForm.errors && ContratoForm.errors['notMatching'] && ContratoForm.get('Número_invitados')?.touched"
+          class="text-danger mt-10">
+          La cantidad de invitados no coincide con la cantidad de menaje seleccionado.
+        </div>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Cantidad Menaje</label><br>
+        <input type="number" placeholder="Ejm: 100 " class="form-control" readonly formControlName="Cod_Menaje">
+      </div>
+      <div class="col 4">
+        <button class="Btn1 btn btn-light border border-dark  " (click)="openDialog1($event)">Ver Menaje</button>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Vendedor</label><br>
+        <input type="text" placeholder="Ejm: 100 " class="form-control" formControlName="Cod_administrador"
+          [value]="nombre" required>
+      </div>
+    </div>
+    <div class="row  seccion">
+      <div class="col 3 mt-2">
+        <h3>Descripción</h3>
+        <div class="form-check" *ngFor="let item of Obligatorio">
+          <input class="form-check-input" type="checkbox" [value]="item.valor" id="defaultCheck5"
+            (change)="onCheckboxChange($event, item)" [checked]="selectedItems.includes(item)">
+          <label class="form-check-label" for="defaultCheck5" class="form-label">
+            {{item.Nombre}}
+          </label>
+        </div>
+      </div>
+      <div class="col-3 mt-2">
+        <div class="form-group">
+          <h3>Valor</h3>
+          <div class="form-group" *ngFor="let item of Obligatorio">
+            <label class="form-label">${{item.valor}}</label>
+          </div>
+
+        </div>
+      </div>
+      <div class="col 3 mt-2">
+
+        <h3>Adicionales</h3>
+        <div class="form-check" *ngFor="let item of adicional">
+          <input class="form-check-input" type="checkbox" [value]="item.valor" id="defaultCheck5"
+            (change)="onCheckboxChange($event, item)" [checked]="selectedItems.includes(item)">
+          <label class="form-check-label" for="defaultCheck5" class="form-label">
+            {{item.Nombre}}
+          </label>
+        </div>
+      </div>
+      <div class="col-3 mt-2">
+        <div class="form-group">
+          <h3>Valor</h3>
+          <div class="form-group" *ngFor="let item of adicional">
+            <label class="form-label">${{item.valor}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Forma De Pago</label><br>
+        <select class="form-control" formControlName="Forma_pago">
+          <option selected></option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Tranferencia">Tranferencia</option>
+        </select>
+      </div>
+      <div class="col-4 seccion ">
+        <div class="form-group">
+          <h4>Valor Neto</h4>
+          <div class="form-group">
+            <label class="form-label" formControlName="valor_neto">{{ totalAproximado | currency }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Valor A Pagar</label><br>
+        <input type="text" placeholder="Ejm: 0000" class="form-control" formControlName="valor_pagar"
+          [value]="totalAproximado | currency" readonly>
+      </div>
+    </div>
+    <button type="button" class="Btn2 btn btn-success " (click)=" enviarDatos()">Guardar</button>
+    <button type="button" class="Btn2 btn btn-danger " (click)="resetForm()">Limpiar</button>
+    <button type="button" class="Btn2 btn btn-primary " (click)="generarPDF()">Recibo</button>
+  </form>
+  <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fecha contrato</th>
+            <th scope="col">Fecha evento</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Canselo</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of resultadoContrato">
+            <td>{{item.Cod_contrato}}</td>
+            <td>{{item.Fecha_contrato }}</td>
+            <td>{{item.Fecha_evento }}</td>
+            <td>{{item.Hora_evento }}</td>
+            <td>{{item.valor_pagar }}</td>
+
+            <td>
+              <button (click)="cambiarEstado(item.Cod_contrato, 1)" *ngIf="item.Estado_contrato === 0"
+                class="btn btn-success">
+                Se Pago
+              </button>
+              <button (click)="cambiarEstado(item.Cod_contrato, 0)" *ngIf="item.Estado_contrato === 1"
+                class="btn btn-danger">
+                No Pagado
+              </button>
+            </td>
+            <td>
+              <a><mat-icon style="cursor: pointer;" (click)="eliminarContrato(item.Cod_contrato)">delete</mat-icon></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

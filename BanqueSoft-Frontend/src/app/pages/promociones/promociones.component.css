@@ -1,0 +1,38 @@
+.container {
+  max-width: 80%;
+  height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  padding: 80px;
+}
+
+.ayuda {
+  padding: 5px;
+}
+
+img {
+  margin: 10px;
+  background: lightblue;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}
+
+p {
+  margin-top: 50px;
+  text-align: center;
+}

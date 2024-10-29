@@ -1,0 +1,37 @@
+.container {
+  width: 15.5rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1rem 1rem;
+  background-color: aliceblue;
+  border-right: 1px solid #999;
+}
+li {
+  margin-top: 33px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+img {
+  width: 100%;
+}
+
+#footer {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.icon {
+  width: 20%;
+  height: 22px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}

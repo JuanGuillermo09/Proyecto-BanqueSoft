@@ -1,0 +1,58 @@
+<app-side-bar></app-side-bar>
+<div class="container">
+  <div>
+    <h1>Cotizar Evento</h1>
+  </div>
+  <hr>
+
+
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-4">
+        <label class="form-label">Tipo Evento</label><br>
+        <select class="form-control" formControlName="Cod_tipo_evento">
+          <option *ngFor="let item of TipoActivo" [value]="item.Nombre">
+            {{ item.Nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="col-4">
+        <h3>Descripción</h3>
+        <div class="form-check" *ngFor="let item of Obligatorio">
+          <input class="form-check-input" type="checkbox" [value]="item.valor" id="defaultCheck1"
+            (change)="onCheckboxChange($event, item)" [checked]="selectedItems.includes(item)"
+            [disabled]="!form.get('Cod_tipo_evento')?.value">
+          <label class="form-check-label" for="defaultCheck1">
+            {{ item.Nombre }}
+          </label>
+        </div>
+      </div>
+      <div class="col-4">
+        <h3>Adicionales</h3>
+        <div class="form-check" *ngFor="let item of adicional">
+          <input class="form-check-input" type="checkbox" [value]="item.valor" id="defaultCheck5"
+            (change)="onCheckboxChange($event, item)" [checked]="selectedItems.includes(item)"
+            [disabled]="!form.get('Cod_tipo_evento')?.value">
+          <label class="form-check-label" for="defaultCheck5">
+            {{ item.Nombre }}
+          </label>
+        </div>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-4">
+        <button type="button" class="btn btn-success" (click)="generarPDF()">PDF</button>
+        <button type="button" class="btn btn-warning" (click)="limpiarCampos()">Limpiar</button>
+        <button type="button" class="btn btn-info" routerLink="/iniciarSesion">Agendar Cita</button>
+      </div>
+      <div class="col-4">
+        <h6>Dia Mes Año</h6>
+        <h6>{{ horaActual | date: "dd - MM - yyyy" }}</h6>
+      </div>
+      <div class="col-4">
+        <h6>Total Aproximado</h6>
+        <h6>{{ totalAproximado | currency }}</h6>
+      </div>
+    </div>
+  </form>
+</div>

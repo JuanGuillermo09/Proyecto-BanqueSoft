@@ -1,0 +1,73 @@
+<div class="container">
+  <h1>Promociones</h1>
+  <hr>
+  <form [formGroup]="formPromocion">
+    <div class="row">
+
+      <div class="col-sm-4 col-md-4">
+        <label class="form-label">Fecha</label><br>
+        <input type="date" formControlName="Fecha_publicacion" class="form-control">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Imagen</label><br>
+        <input type="file" formControlName="Imagen" (change)="enviarImg($event)" accept="image/*" class="form-control">
+      </div>
+      <div class="col 4">
+        <img class="mostrar" *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen Alterna">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 12">
+        <label class="form-label">Descripción</label><br>
+        <textarea class="form-control" rows="3" formControlName="Descripcion"></textarea>
+      </div>
+    </div>
+    <div class="footer">
+      <button *ngIf="!botonEditar" (click)="enviarDatos()" class="Btn btn btn-success">Guardar</button>
+      <button *ngIf="botonEditar" (click)="editarDatos()" class="Btn btn btn-success">Editar</button>
+      <button type="button" class="Btn btn btn-danger" (click)="resetForm()">Limpiar</button>
+
+    </div>
+  </form>
+  <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of resultadosPromo">
+            <td>{{item.Cod_Promocion}}</td>
+            <td>{{item.Descripcion }}</td>
+            <td>{{item.Fecha_publicacion }}</td>
+            <td><mat-icon (click)="openDialog(item.Imagen)" style="cursor: pointer;">imagen</mat-icon></td>
+            <td>
+              <!-- Esto dentro de tu lista o tabla de promocion -->
+              <button (click)="cambiarEstado(item.Cod_Promocion, 1)" *ngIf="item.Estado === 0"
+                class="btn btn-success">Activar</button>
+              <button (click)="cambiarEstado(item.Cod_Promocion, 0)" *ngIf="item.Estado === 1"
+                class="btn btn-danger">Desactivar</button>
+            </td>
+            <td>
+
+              <a><mat-icon style="cursor: pointer;"
+                  (click)="editarPromocion(item, item.Cod_Promocion)">edit</mat-icon></a>&nbsp;
+              <a><mat-icon style="cursor: pointer;"
+                  (click)="eliminarPromocion(item.Cod_Promocion)">delete</mat-icon></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

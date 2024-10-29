@@ -1,0 +1,86 @@
+<div class="container">
+  <form action="formulario_submit" method="get" accept-charset="utf-8" [formGroup]="FormCliente">
+    <h1>Registrarse</h1>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Tipo De Documento</label><br>
+        <select class="form-control" formControlName="Tipo_documento">
+          <option selected></option>
+          <option value="CC">CC</option>
+          <option value="CE">CE</option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Identificacion</label><br>
+        <input type="text" placeholder="Ejm: 102054565" class="form-control" formControlName="Identificacion" equired
+          minlength="1" maxlength="10" size="10">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Nombres</label><br>
+        <input type="text" placeholder="Ejm: Juan Guillermo" class="form-control" formControlName="Nombre">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Apellidos</label><br>
+        <input type="text" placeholder="Ejm: Cardenas Miranda" class="form-control" formControlName="Apellidos">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Genero</label><br>
+        <select class="form-control" formControlName="Genero">
+          <option selected></option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Telefono</label><br>
+        <input type="number" placeholder="Ejm: 3505947967" class="form-control" formControlName="Telefono">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Direccion</label><br>
+        <input type="text" placeholder="Ejm: calle" class="form-control" formControlName="Direccion">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Email</label><br>
+        <input type="email" placeholder="Ejm: juangui.1032@gmail.com" class="form-control" formControlName="Email">
+      </div>
+    </div>
+    <br>
+    <div class="row ">
+      <div class="col 4">
+        <label class="form-label">Contraseña</label><br>
+        <input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" class="form-control"
+          formControlName="Contrasenia">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Confirmar Contraseña</label><br>
+        <input [type]="showPassword ? 'text' : 'password'" placeholder="Confirmar" class="form-control"
+          formControlName="Encriptado">
+        <div
+          *ngIf="FormCliente.errors && this.FormCliente.errors['notMatching'] && FormCliente.get('Encriptado')?.touched"
+          class="text-danger">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+      <div class="col 4">
+        <mat-icon (click)="showPassword = !showPassword" class="icon">{{ showPassword ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+      </div>
+    </div>
+    <br>
+    <button *ngIf="!botonEditar" (click)="enviarDatos()" class="Btn btn btn-success">Guardar</button>
+    <!-- <button *ngIf="botonEditar" (click)="editarDatos()" class="Btn btn btn-success">Editar</button> -->
+    <button type="button" class="btn btn-warning" (click)="resetForm()">Limpiar</button>
+    <button type="button" class="Btn btn btn-danger" routerLink="/iniciarSesion" routerLinkActive="router-link-active" >Cancelar</button>
+  </form>
+</div>

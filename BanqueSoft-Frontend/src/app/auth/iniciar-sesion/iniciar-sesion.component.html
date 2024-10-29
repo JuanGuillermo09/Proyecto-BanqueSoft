@@ -1,0 +1,34 @@
+<div class="container">
+  <form [formGroup]="formInicio">
+    <h1>Iniciar sesión</h1>
+    <hr>
+    <label class="form-label">Seleccione su Rol</label><br>
+    <select class="form-control" formControlName="TypeUser">
+      <option></option>
+      <option value="Cliente">Cliente</option>
+      <option value="Administrador">Administrador</option>
+    </select>
+    <label class="form-label">Identificacion</label><br>
+    <input type="text" formControlName="Identificacion"
+      placeholder="Identificacion" required minlength="1" maxlength="10" size="10"
+      class="form-control">
+    <!-- <label class="form-label">Contraseña</label><br>
+    <input type="password" formControlName="Contrasenia" placeholder="Contraseña"
+      class="form-control"> -->
+      <div class="row ">
+        <div class="col 4">
+          <label class="form-label">Contraseña</label>
+          <input  [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" class="form-control" formControlName="Contrasenia">
+        </div>
+        <div class="col 4">
+          <mat-icon (click)="showPassword = !showPassword" class="icon">{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </div>
+      </div>
+  </form>
+  <button type="button" class="btn btn-success"
+    (click)="loginUser()">Entrar</button>
+  <button type="button" class="btn btn-primary" routerLink="/registrar">Registrarse</button>
+  <button type="button" class="btn btn-danger" routerLink="/inicio">Cancelar</button>
+
+  <p><a href="recuperar">Olvido Contraseña?</a></p>
+</div>

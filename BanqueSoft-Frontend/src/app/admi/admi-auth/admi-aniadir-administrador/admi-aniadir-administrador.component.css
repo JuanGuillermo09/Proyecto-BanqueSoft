@@ -1,0 +1,44 @@
+.container {
+  max-width: 70%;
+  height: 50%;
+  padding-left: 250px;
+  padding-top: 40px;
+}
+
+label {
+  font-weight: 100%;
+}
+
+form {
+  margin-top: 80px;
+  width: 100%;
+  height: 80%;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}
+h1 {
+  text-align: center;
+}
+
+.Btn {
+  width: 20%;
+  margin: 10px;
+}
+
+.container1 {
+  max-width: 80%;
+  margin-left: 330px;
+}
+
+
+.icon{
+  cursor: pointer;
+  margin-top: 40px;
+}

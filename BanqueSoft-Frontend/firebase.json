@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "dist/banque-soft/browser",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

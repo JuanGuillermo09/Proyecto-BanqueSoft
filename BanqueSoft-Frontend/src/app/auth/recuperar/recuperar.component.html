@@ -1,0 +1,30 @@
+
+<div class="container">
+  <form [formGroup]="recuperarContraseniaForm" (ngSubmit)="enviarCorreo()">
+    <h1>Recuperar Contraseña</h1>
+    <hr>
+    <div class="row">
+      <div class="col-4">
+        <label class="form-label">Tipo De Documento</label><br>
+        <select formControlName="tipoDocumento" class="form-control">
+          <option value="" selected>...</option>
+          <option value="CC">CC</option>
+          <option value="CE">CE</option>
+        </select>
+      </div>
+      <div class="col-4">
+        <label class="form-label">Identificación</label><br>
+        <input type="number" formControlName="identificacion" placeholder="Ej: 102054565" class="form-control">
+      </div>
+    </div><br>
+    <button type="submit" class="btn btn-success m-2" [disabled]="recuperarContraseniaForm.invalid">Enviar Correo
+      Electrónico</button>
+    <button type="button" class="btn btn-danger m-2" routerLink="/iniciarSesion">Cancelar</button>
+  </form>
+</div>
+
+
+ <!-- Loading Spinner -->
+ <div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>

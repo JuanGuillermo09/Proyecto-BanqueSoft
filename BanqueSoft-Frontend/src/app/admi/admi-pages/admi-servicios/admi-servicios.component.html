@@ -1,0 +1,129 @@
+<div class="container">
+  <h1>Servicios</h1>
+  <hr>
+  <form action="" [formGroup]="serviciosForm" >
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label"> Nombre servicio</label><br>
+        <input type="text" placeholder="Ejm: Mariachi" class="form-control" formControlName="Nombre">
+      </div>
+      <div class="col 4">
+        <label class="form-label">Imagen</label><br>
+        <input type="file" class="form-control" formControlName="Imagen" (change)="enviarImg($event)">
+      </div>
+      <div class="col 4">
+        <img class="mostrar" *ngIf="imagenUrl" [src]="imagenUrl" alt="Imagen Alterna">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label"> ¿Marcar como obligatorio?</label><br>
+        <select class="form-control" formControlName="Obligatorio">
+          <option value="Si">Si</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">¿Es adicional?</label><br>
+        <select class="form-control" formControlName="Adicionales">
+          <option value="Si">Si</option>
+          <option value="No">No </option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Valor servicio $</label><br>
+        <input type="number" placeholder="Ejm: 300000" class="form-control" formControlName="valor">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Mostrar en cotizacion </label><br>
+        <select class="form-control" formControlName="Sn_cotizar">
+          <option value="Si">Si</option>
+          <option value="No">No </option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label">Seleccionar categoria</label><br>
+        <select formControlName="Cod_categoria" class="form-control">
+          <option *ngFor="let item of CategoriaActiva" [value]="item.Cod_categoria">
+            {{item.Cod_categoria}}
+            {{item.Nombre}}
+          </option>
+        </select>
+      </div>
+      <div class="col 4">
+        <label class="form-label"> Asociar prestador </label><br>
+
+         <select  class="form-control" formControlName="Cod_prestador_servicio">
+          <option  *ngFor="let item of PrestadorActivo " [value]="item.Cod_prestador_servicio">
+            {{item.Cod_prestador_servicio}}
+            {{item.Nombre}}
+          </option>
+         </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col 4">
+        <label class="form-label">Description</label><br>
+        <textarea placeholder="Ejm: De traje blanco" class="form-control" rows="3"
+          formControlName="Descripcion"></textarea>
+      </div>
+
+    </div>
+    <br>
+    <button *ngIf="!botonEditar" (click)="enviarDatos()" class="Btn btn btn-success">Guardar</button>
+    <button *ngIf="botonEditar" (click)="editarDatos()" class="Btn btn btn-success">Editar</button>
+    <button type="button" class="Btn btn btn-danger" (click)="resetForm()">Limpiar</button>
+  </form>
+
+  <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Prestador</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Estado</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of resultadosServicios">
+            <td>{{item.Cod_servicio}}</td>
+            <td>{{item.Nombre }}</td>
+            <td>{{item.valor }}</td>
+            <td>{{item.Cod_categoria}}</td>
+            <td>{{item.Cod_prestador_servicio}}</td>
+            <td>{{item.Descripcion }}</td>
+
+            <td><mat-icon (click)="openDialog(item.Imagen)" style="cursor: pointer;">imagen</mat-icon></td>
+            <td>
+                  <!-- Esto dentro de tu lista o tabla de servicio -->
+                  <button (click)="cambiarEstado(item.Cod_servicio, 1)" *ngIf="item.Estado === 0"
+                  class="btn btn-success">Activar</button>
+                <button (click)="cambiarEstado(item.Cod_servicio, 0)" *ngIf="item.Estado === 1"
+                  class="btn btn-danger">Desactivar</button>
+            </td>
+            <td>
+              <a><mat-icon style="cursor: pointer;"
+                (click)="editarServicio(item, item.Cod_servicio)">edit</mat-icon></a>&nbsp;
+            <a><mat-icon style="cursor: pointer;"
+                (click)="eliminarServicio(item.Cod_servicio)">delete</mat-icon></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

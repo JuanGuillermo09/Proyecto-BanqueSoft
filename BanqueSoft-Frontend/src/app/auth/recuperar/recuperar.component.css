@@ -1,0 +1,39 @@
+.container {
+  max-width: 40%;
+  height: 100%;
+  padding-top: 200px;
+}
+
+label {
+  padding: 10px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+mat-spinner {
+  width: 80px;
+  height: 80px;
+  z-index: 1001; /* Colocarlo por encima del overlay */
+}

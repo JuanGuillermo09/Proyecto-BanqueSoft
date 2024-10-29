@@ -1,0 +1,26 @@
+.container {
+  max-width: 70%;
+  height: 50%;
+  padding-left: 250px;
+  padding-top: 150px;
+}
+
+label {
+  padding: 10px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.Btn {
+  margin: 20px;
+  width: 20%;
+}

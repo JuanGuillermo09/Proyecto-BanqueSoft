@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="notificacion">
+    <mat-icon class="icon1" (click)="openDialog()"> notifications </mat-icon>
+
+    <mat-icon class="icon1" mat-button [matMenuTriggerFor]="beforeMenu"> person </mat-icon>
+  </div>
+
+  <div class="Menu">
+    <mat-menu #beforeMenu="matMenu" xPosition="before" >
+      <h6 *ngIf="nombre">Hola {{ nombre }}</h6>
+      <h6 *ngIf="!nombre">Hola, administrador no autenticado.</h6>
+      <hr>
+      <button mat-menu-item routerLink="cliente">Clientes</button>
+      <button mat-menu-item routerLink="aniadir-administrador">Administradores</button>
+      <button mat-menu-item routerLink="prestador-service">Prestador Servicios</button>
+      <button mat-menu-item (click)="logout()">Cerrar Sesion</button>
+    </mat-menu>
+  </div>
+</div>

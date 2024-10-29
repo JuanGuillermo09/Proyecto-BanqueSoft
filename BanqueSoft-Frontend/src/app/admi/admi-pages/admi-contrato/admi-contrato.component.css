@@ -1,0 +1,48 @@
+.fecha {
+  margin: 5px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}
+h1 {
+  text-align: center;
+}
+
+.container {
+  max-width: 70%;
+  height: 50%;
+  padding-left: 250px;
+  padding-top: 100px;
+}
+
+input {
+  margin-right: 20px;
+}
+
+.seccion {
+  margin-top: 10px;
+  margin-left: 100px;
+}
+
+.Btn2 {
+  width: 20%;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+.Btn{
+  margin-top: 30px;
+  width: 50%;
+}
+
+.Btn1{
+  width: 60%;
+  font-size: 15px;
+  margin-top: 30px;
+  margin-right: 100px;
+
+}

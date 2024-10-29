@@ -1,0 +1,21 @@
+
+
+
+ .about-me {
+margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  width: 50%;
+  height: 20%;
+}
+
+.image-container {
+  flex: 1;
+  padding: 20px;
+
+}
+
+.foto {
+  width: 100%;
+  border-radius: 10px;
+}

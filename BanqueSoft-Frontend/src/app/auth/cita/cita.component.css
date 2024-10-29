@@ -1,0 +1,53 @@
+.container {
+  max-width: 65%;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  border-bottom: 2px solid #333;
+  height: 0;
+}
+
+label {
+  font-weight: 100%;
+  font-family: arial;
+}
+
+form {
+  padding-top: 200px;
+  width: 100%;
+  height: 100%;
+}
+.Btn {
+  width: 20%;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+
+
+
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+mat-spinner {
+  width: 80px;
+  height: 80px;
+  z-index: 1001; /* Colocarlo por encima del overlay */
+}
