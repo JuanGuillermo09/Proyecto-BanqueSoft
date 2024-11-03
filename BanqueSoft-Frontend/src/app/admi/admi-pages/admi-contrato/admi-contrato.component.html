@@ -142,9 +142,9 @@
           [value]="totalAproximado | currency" readonly>
       </div>
     </div>
-    <button type="button" class="Btn2 btn btn-success " (click)=" enviarDatos()">Guardar</button>
+    <button type="button" class="Btn2 btn btn-success " (click)=" enviarDatos()" [disabled]="notSave">Guardar</button>
     <button type="button" class="Btn2 btn btn-danger " (click)="resetForm()">Limpiar</button>
-    <button type="button" class="Btn2 btn btn-primary " (click)="generarPDF()">Recibo</button>
+    <button type="button" class="Btn2 btn btn-primary " (click)="generarPDF()" [disabled]="notSave">Recibo</button>
   </form>
   <hr>
   <div class="row">

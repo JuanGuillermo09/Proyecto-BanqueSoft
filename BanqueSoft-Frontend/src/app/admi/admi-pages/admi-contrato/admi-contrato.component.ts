@@ -44,7 +44,7 @@ export class AdmiContratoComponent implements OnInit {
     '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM', '06:00 AM', '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM', '10:00 PM', '11:00 PM'
   ];
-
+  notSave: boolean = false
 
 
 
@@ -74,6 +74,28 @@ export class AdmiContratoComponent implements OnInit {
 
 
 
+
+  }
+
+  // Función de comparación
+  compararCantidadConInvitados(cantidadMenaje: number) {
+    const numeroInvitados = Number(this.ContratoForm.get('Número_invitados')?.value);
+
+    console.log('Comparando cantidad de menaje con número de invitados:', { cantidadMenaje, numeroInvitados });
+
+    if (numeroInvitados > cantidadMenaje) {
+      // Establece un error si no coinciden
+      this.notSave = true
+      this.ContratoForm.setErrors({ notMatching: true });
+    } else {
+      // Si son iguales, asegúrate de limpiar el error
+      this.notSave = false
+      this.ContratoForm.setErrors(null);
+    }
+  }
+
+  ngOnInit(): void {
+
     // Escuchar cambios en los campos para realizar la comparación
     this.ContratoForm.get('Cod_Menaje')?.valueChanges.subscribe((codMenaje) => {
       if (codMenaje) {
@@ -93,25 +115,6 @@ export class AdmiContratoComponent implements OnInit {
         });
       }
     });
-  }
-
-  // Función de comparación
-  compararCantidadConInvitados(cantidadMenaje: number) {
-    const numeroInvitados = Number(this.ContratoForm.get('Número_invitados')?.value);
-
-    console.log('Comparando cantidad de menaje con número de invitados:', { cantidadMenaje, numeroInvitados });
-
-    if (numeroInvitados > cantidadMenaje) {
-      // Establece un error si no coinciden
-      this.ContratoForm.setErrors({ notMatching: true });
-    } else {
-      // Si son iguales, asegúrate de limpiar el error
-      this.ContratoForm.setErrors(null);
-    }
-  }
-
-  ngOnInit(): void {
-
 
     this.contratoservice.getAllContrato().subscribe((data) => {
       console.log(data);
@@ -224,7 +227,6 @@ export class AdmiContratoComponent implements OnInit {
           Cod_Menaje: result.Cod_Menaje,
           Cantidad: result.Cantidad,
         });
-
       }
     });
   }
@@ -283,6 +285,7 @@ export class AdmiContratoComponent implements OnInit {
     return this.fechasOcupadas.includes(fecha);
   }
 
+
   enviarDatos() {
     if (this.ContratoForm.valid) {
       // Obtener la fecha del evento del formulario
@@ -300,6 +303,15 @@ export class AdmiContratoComponent implements OnInit {
         });
         return; // Detener el proceso si la fecha está ocupada
       }
+      if (this.ContratoForm.errors && this.ContratoForm.errors['notMatching']) {
+        Swal.fire({
+          title: "Error",
+          text: "El Menaje no coinciden con El numero de invitado. Por favor, verifica.",
+          icon: "error"
+        });
+        return; // Salir si las contraseñas no coinciden
+      }
+
 
       // Preparar los datos para enviar
       const addContrato = {
@@ -357,8 +369,6 @@ export class AdmiContratoComponent implements OnInit {
       });
     }
   }
-
-
 
   onTipoEventoChange(value: string) {
     // Convertir a número y actualizar el valor en el FormControl
